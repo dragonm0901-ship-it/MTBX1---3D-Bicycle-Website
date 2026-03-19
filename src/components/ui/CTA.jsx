@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function CTA({ onBookClick }) {
-  const [hovered, setHovered] = useState(false);
   const [priceVisible, setPriceVisible] = useState(false);
   const sectionRef = useRef();
 
@@ -73,8 +72,6 @@ export default function CTA({ onBookClick }) {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={onBookClick}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
             className="group relative overflow-hidden bg-white text-black px-12 py-5 rounded-full font-bold tracking-[0.2em] text-sm shadow-white transition-all duration-300 hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] hover:-translate-y-1 shimmer"
           >
             <span className="relative z-10 flex items-center gap-4">

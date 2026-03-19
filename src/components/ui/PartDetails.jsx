@@ -97,16 +97,17 @@ export default function PartDetails({ part, onUpdate }) {
   const [visible, setVisible] = useState(false);
   const [animated, setAnimated] = useState(false);
   const panelRef = useRef();
-  const metricsRef = useRef([]);
 
   useEffect(() => {
+    let t1, t2;
     if (part) {
-      setVisible(true);
-      setTimeout(() => setAnimated(true), 100);
+      t1 = setTimeout(() => setVisible(true), 0);
+      t2 = setTimeout(() => setAnimated(true), 100);
     } else {
-      setAnimated(false);
-      setTimeout(() => setVisible(false), 500);
+      t2 = setTimeout(() => setAnimated(false), 0);
+      t1 = setTimeout(() => setVisible(false), 500);
     }
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [part]);
 
   if (!visible) return null;

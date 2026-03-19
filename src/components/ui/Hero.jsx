@@ -9,7 +9,6 @@ const STATS = [
 ];
 
 export default function Hero({ onBookClick, onEnterGarage }) {
-  const statsRef = useRef([]);
   const heroRef = useRef();
 
   useEffect(() => {
@@ -75,7 +74,7 @@ export default function Hero({ onBookClick, onEnterGarage }) {
 
         {/* Stat Badges */}
         <div className="flex flex-wrap gap-3 mt-4">
-          {STATS.map((s, i) => (
+          {STATS.map((s) => (
             <div
               key={s.label}
               className="hero-stat glass rounded-2xl px-4 py-3 flex flex-col items-center min-w-[80px]"

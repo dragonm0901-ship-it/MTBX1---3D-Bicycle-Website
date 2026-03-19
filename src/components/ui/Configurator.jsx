@@ -128,12 +128,6 @@ export default function Configurator({ currentColor, onChangeColor, onFinalize, 
     setSelectedComponents(prev => ({ ...prev, [category]: id }));
   };
 
-  const filteredColors = activeFinish === 'custom'
-    ? COLORS
-    : COLORS.filter(c => c.category === activeFinish || activeFinish === 'custom');
-
-  const allColors = activeFinish === 'all' ? COLORS : COLORS;
-
   const tabs = [
     { id: 'color', label: 'FINISH', count: null },
     { id: 'wheels', label: 'WHEELS', count: null },

@@ -4,7 +4,6 @@ import * as THREE from 'three';
 // ── Procedural helmet — static, no useFrame rotation ─────────────────────────
 function ProceduralHelmet({ color = '#cc0000', scale = 0.35, rotY = 0 }) {
   const shellColor = useMemo(() => new THREE.Color(color), [color]);
-  const darkAccent = useMemo(() => new THREE.Color(color).multiplyScalar(0.3), [color]);
 
   return (
     <group scale={scale} rotation={[0, rotY, 0]}>

@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import { useGLTF, OrbitControls, Clone } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import BikeHotspots from './BikeHotspots';
@@ -30,7 +29,6 @@ export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart
   const wrapperRef = useRef();
   const orbitRef = useRef();
   const { scene, materials } = useGLTF('/models/santa_cruz_v10_downhill_mountain_bicycle.glb');
-  const { gl } = useThree();
 
   // ── Color change via GSAP (Targets cloned materials in the scene) ──
   useEffect(() => {
@@ -73,7 +71,7 @@ export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart
         wrapperRef.current.rotation.set(0, -Math.PI / 1.6, 0);
       }
     }
-  }, [scene]);
+  }, [scene, isGarageOpen]);
 
   // ── Mode transition: Hero ↔ Garage ──
   useEffect(() => {
@@ -105,8 +103,10 @@ export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart
 
   // ── Interaction Cursors ──
   useEffect(() => {
-    gl.domElement.style.cursor = isGarageOpen ? 'grab' : 'auto';
-  }, [isGarageOpen, gl.domElement]);
+    // using document.body to avoid direct gl.domElement modification warning
+    document.body.style.cursor = isGarageOpen ? 'grab' : 'auto';
+    return () => { document.body.style.cursor = 'auto'; };
+  }, [isGarageOpen]);
 
   const handlePartClick = (e) => {
     e.stopPropagation();
