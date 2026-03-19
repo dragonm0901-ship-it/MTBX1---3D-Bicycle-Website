@@ -148,7 +148,7 @@ function BikeOnWall({ position, rotation = [0,0,0], color = '#cc0000', scale = 0
   return (
     <group position={position} rotation={rotation}>
       <WallMount position={[0, 0, 0.1]} />
-      <primitive object={cloned} position={[0, -0.2, 0.45]} />
+      <primitive object={cloned} position={[0.2, -0.2, 0.2]} rotation={[0, Math.PI / 2, 0]} />
     </group>
   );
 }
