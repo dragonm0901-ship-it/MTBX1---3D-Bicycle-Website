@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useGLTF, OrbitControls, Clone } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
@@ -20,14 +20,24 @@ function detectPart(name) {
   return 'frame';
 }
 
-// Hero: bike positioned on far right, facing right-ish, static angle
-const HERO_OFFSET_X = 4.2;
+// Hero: bike positioning (handled responsively inside component)
 const GARAGE_Y = 0;
 
 export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart, selectedPart }) {
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
   const group = useRef();
   const wrapperRef = useRef();
   const orbitRef = useRef();
+
+  useEffect(() => {
+    const handleResize = () => setIsMobileScreen(window.innerWidth < 768);
+    if (typeof window !== 'undefined') {
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
   const { scene, materials } = useGLTF('/models/santa_cruz_v10_downhill_mountain_bicycle.glb');
 
   // ── Color change via GSAP (Targets cloned materials in the scene) ──
@@ -51,9 +61,21 @@ export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     
-    // "Bigger" bike Scale factor
-    const scaleFactor = 4.2 / size.y;
-    group.current.scale.setScalar(scaleFactor);
+    // Scale factor (Strictly 4.2 for desktop, decreased by 40% for mobile as requested)
+    const baseScale = isMobileScreen ? 2.5 : 4.2;
+    const scaleFactor = baseScale / size.y;
+    
+    if (group.current) {
+      if (isGarageOpen) {
+         group.current.scale.setScalar(scaleFactor);
+      } else {
+        gsap.to(group.current.scale, {
+          x: scaleFactor, y: scaleFactor, z: scaleFactor,
+          duration: 0.8, ease: 'power2.out'
+        });
+      }
+    }
+
     group.current.position.set(
       -center.x * scaleFactor,
       -center.y * scaleFactor,
@@ -62,16 +84,16 @@ export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart
 
     wrapperRef.current = group.current.parent;
     if (wrapperRef.current) {
+      const offsetX = isMobileScreen ? 1.0 : 4.2;
       // Set initial positions based on state
       if (isGarageOpen) {
         wrapperRef.current.position.set(0, GARAGE_Y, 0);
-        wrapperRef.current.rotation.set(0, -Math.PI / 1.6, 0);
       } else {
-        wrapperRef.current.position.set(HERO_OFFSET_X, 0, 0);
-        wrapperRef.current.rotation.set(0, -Math.PI / 1.6, 0);
+        wrapperRef.current.position.set(offsetX, 0, 0);
       }
+      wrapperRef.current.rotation.set(0, -Math.PI / 1.6, 0);
     }
-  }, [scene, isGarageOpen]);
+  }, [scene, isGarageOpen, isMobileScreen]);
 
   // ── Mode transition: Hero ↔ Garage ──
   useEffect(() => {
@@ -81,16 +103,18 @@ export default function Bike({ color, isGarageOpen, onToggleGarage, onSelectPart
     gsap.killTweensOf(w.position);
     gsap.killTweensOf(w.rotation);
 
+    const offsetX = isMobileScreen ? 1.0 : 4.2;
+
     if (isGarageOpen) {
       // Smooth travel to garage center
       gsap.to(w.position, { x: 0, y: GARAGE_Y, z: 0, duration: 1.2, ease: 'power3.inOut' });
       gsap.to(w.rotation, { y: -Math.PI / 1.6, duration: 1.2, ease: 'power3.inOut' });
     } else {
       // Smooth return to hero position on the right
-      gsap.to(w.position, { x: HERO_OFFSET_X, y: 0, z: 0, duration: 1.2, ease: 'power3.inOut' });
+      gsap.to(w.position, { x: offsetX, y: 0, z: 0, duration: 1.2, ease: 'power3.inOut' });
       gsap.to(w.rotation, { y: -Math.PI / 1.6, duration: 1.2, ease: 'power3.inOut' });
     }
-  }, [isGarageOpen]);
+  }, [isGarageOpen, isMobileScreen]);
 
   // ── Reset OrbitControls target when returning from inspection ──
   useEffect(() => {
