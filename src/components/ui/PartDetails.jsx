@@ -1,10 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
+import { 
+  Circle, 
+  Sliders, 
+  Settings, 
+  Component, 
+  ArrowUpDown, 
+  Sparkles 
+} from 'lucide-react';
 
 const PART_DATA = {
   wheels: {
     title: "Wheel System",
     subtitle: "ROTATIONAL DYNAMICS",
-    icon: "○",
+    icon: Circle,
     accentColor: "#0a8aff",
     content: "32mm internal-width carbon rims engineered for high-speed descent stability. Asymmetric layup for maximum lateral stiffness with minimal rotational inertia.",
     specs: [
@@ -22,7 +30,7 @@ const PART_DATA = {
   handlebars: {
     title: "Cockpit System",
     subtitle: "INTEGRATED CONTROL",
-    icon: "⊢",
+    icon: Sliders,
     accentColor: "#c9a227",
     content: "Uninterrupted lines. Fully internal cable routing through a proprietary stem interface. 800mm width, 20mm rise, designed for maximum mechanical advantage.",
     specs: [
@@ -40,7 +48,7 @@ const PART_DATA = {
   drivetrain: {
     title: "Power Transfer",
     subtitle: "HIGH-FIDELITY LINKAGE",
-    icon: "⚙",
+    icon: Settings,
     accentColor: "#2dcf52",
     content: "XTR Di2 electronic shifting synchronized with a 10-51T cascade cassette. Ceramic bearings throughout for absolute minimum frictional loss.",
     specs: [
@@ -58,7 +66,7 @@ const PART_DATA = {
   frame: {
     title: "Frame Structure",
     subtitle: "AEROSPACE MONOCOQUE",
-    icon: "◈",
+    icon: Component,
     accentColor: "#b90202",
     content: "T1000 High-Modulus Carbon Fiber with aerospace-grade impact-dispersion geometry. Optimized for extreme high-speed downhill stability.",
     specs: [
@@ -76,7 +84,7 @@ const PART_DATA = {
   suspension: {
     title: "Suspension Circuit",
     subtitle: "KINETIC ABSORPTION",
-    icon: "↕",
+    icon: ArrowUpDown,
     accentColor: "#9b59b6",
     content: "Fox Factory 40 Float GRIP2 with Kashima coating delivering 203mm of buttery-smooth travel. Independently tunable compression and rebound for any terrain.",
     specs: [
@@ -155,7 +163,7 @@ export default function PartDetails({ part, onUpdate }) {
           <div className="flex items-start gap-4">
             <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0"
               style={{ background: `${accent}15`, border: `1px solid ${accent}30` }}>
-              {data.icon}
+              <data.icon size={28} style={{ color: accent }} />
             </div>
             <div>
               <h2 className="font-syncopate text-2xl text-white font-bold leading-tight">{data.title}</h2>
@@ -220,7 +228,7 @@ export default function PartDetails({ part, onUpdate }) {
         {/* CTA */}
         <div className="mt-8 pt-6 border-t border-white/5">
           <button
-            className="w-full py-3 rounded-xl text-[10px] font-bold tracking-[0.25em] transition-all"
+            className="w-full py-3 rounded-xl text-[10px] font-bold tracking-[0.25em] transition-all flex items-center justify-center gap-2"
             style={{
               background: `${accent}15`,
               border: `1px solid ${accent}30`,
@@ -229,7 +237,7 @@ export default function PartDetails({ part, onUpdate }) {
             onMouseEnter={e => { e.currentTarget.style.background = `${accent}25`; }}
             onMouseLeave={e => { e.currentTarget.style.background = `${accent}15`; }}
           >
-            CONFIGURE THIS COMPONENT ✦
+            CONFIGURE THIS COMPONENT <Sparkles size={12} />
           </button>
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { Component, Circle, Sliders, ArrowUpDown } from 'lucide-react';
+
 const GALLERY_ITEMS = [
   {
     title: "Carbon Weave",
@@ -5,7 +7,7 @@ const GALLERY_ITEMS = [
     aspect: "col-span-2 row-span-2",
     gradient: "from-zinc-900 via-zinc-800 to-zinc-950",
     accent: "#c9a227",
-    icon: "◈",
+    icon: Component,
     number: "01",
   },
   {
@@ -14,7 +16,7 @@ const GALLERY_ITEMS = [
     aspect: "col-span-1 row-span-1",
     gradient: "from-zinc-900 to-zinc-950",
     accent: "#0a8aff",
-    icon: "○",
+    icon: Circle,
     number: "02",
   },
   {
@@ -23,7 +25,7 @@ const GALLERY_ITEMS = [
     aspect: "col-span-1 row-span-1",
     gradient: "from-zinc-950 to-black",
     accent: "#2dcf52",
-    icon: "⊢",
+    icon: Sliders,
     number: "03",
   },
   {
@@ -32,7 +34,7 @@ const GALLERY_ITEMS = [
     aspect: "col-span-2 row-span-1",
     gradient: "from-zinc-900 to-stone-950",
     accent: "#b90202",
-    icon: "↕",
+    icon: ArrowUpDown,
     number: "04",
   },
 ];
@@ -97,12 +99,11 @@ export default function Gallery() {
                 </span>
               </div>
 
-              {/* Icon */}
               <div
                 className="absolute top-6 left-6 z-20 w-10 h-10 rounded-xl flex items-center justify-center text-lg opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
                 style={{ background: `${item.accent}20`, border: `1px solid ${item.accent}30`, color: item.accent }}
               >
-                {item.icon}
+                <item.icon size={20} />
               </div>
 
               {/* Label */}

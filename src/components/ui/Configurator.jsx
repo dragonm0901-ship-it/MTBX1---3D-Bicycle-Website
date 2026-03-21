@@ -1,4 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
+import { 
+  Square, 
+  Diamond, 
+  Component, 
+  Layers, 
+  Sparkles, 
+  Circle, 
+  Sliders, 
+  Settings, 
+  ArrowUpDown, 
+  Disc 
+} from 'lucide-react';
 import gsap from 'gsap';
 
 const COLORS = [
@@ -17,17 +29,17 @@ const COLORS = [
 ];
 
 const MATERIAL_FINISHES = [
-  { id: 'matte',  label: 'Matte', icon: '◼' },
-  { id: 'gloss',  label: 'Gloss', icon: '◆' },
-  { id: 'chrome', label: 'Chrome', icon: '◈' },
-  { id: 'carbon', label: 'Carbon Weave', icon: '⊞' },
-  { id: 'custom', label: 'Custom', icon: '✦' },
+  { id: 'matte',  label: 'Matte', icon: Square },
+  { id: 'gloss',  label: 'Gloss', icon: Diamond },
+  { id: 'chrome', label: 'Chrome', icon: Component },
+  { id: 'carbon', label: 'Carbon Weave', icon: Layers },
+  { id: 'custom', label: 'Custom', icon: Sparkles },
 ];
 
 const COMPONENTS = {
   wheels: {
     label: 'WHEELS',
-    icon: '○',
+    icon: Circle,
     options: [
       { id: 'stock',    name: 'DT Swiss OPM',     sub: 'Stock – 29" Carbon', price: 0 },
       { id: 'mid',      name: 'Industry Nine',     sub: '29" Carbon 1/1',    price: 850 },
@@ -37,7 +49,7 @@ const COMPONENTS = {
   },
   handlebars: {
     label: 'COCKPIT',
-    icon: '⊢',
+    icon: Sliders,
     options: [
       { id: 'stock',    name: 'Race Face Atlas',   sub: 'Stock – 800mm 35mm', price: 0 },
       { id: 'mid',      name: 'Renthal Fatbar',    sub: '810mm Carbon',       price: 380 },
@@ -47,7 +59,7 @@ const COMPONENTS = {
   },
   drivetrain: {
     label: 'DRIVETRAIN',
-    icon: '⚙',
+    icon: Settings,
     options: [
       { id: 'stock',    name: 'Shimano XT',        sub: '12-Speed Mech',      price: 0 },
       { id: 'mid',      name: 'Shimano XTR Mech',  sub: '12-Speed Precision', price: 680 },
@@ -57,7 +69,7 @@ const COMPONENTS = {
   },
   suspension: {
     label: 'SUSPENSION',
-    icon: '↕',
+    icon: ArrowUpDown,
     options: [
       { id: 'stock',    name: 'Fox 38 Float',      sub: '29" 170mm Factory',  price: 0 },
       { id: 'mid',      name: 'Fox 38 Factory',    sub: '29" Kashima GRIP2',  price: 450 },
@@ -67,7 +79,7 @@ const COMPONENTS = {
   },
   brakes: {
     label: 'BRAKES',
-    icon: '⊣',
+    icon: Disc,
     options: [
       { id: 'stock',    name: 'Shimano XT M8120',  sub: '4-Piston Stock',     price: 0 },
       { id: 'mid',      name: 'Shimano XTR M9120', sub: '4-Piston Finned',    price: 320 },
@@ -216,7 +228,7 @@ export default function Configurator({ currentColor, onChangeColor, onFinalize, 
                             : 'text-white/35 hover:text-white/70 border border-transparent hover:border-white/10'
                         }`}
                       >
-                        <span>{f.icon}</span>
+                        <f.icon size={11} className={activeFinish === f.id ? 'text-white' : 'text-white/40'} />
                         {f.label.toUpperCase()}
                       </button>
                     ))}

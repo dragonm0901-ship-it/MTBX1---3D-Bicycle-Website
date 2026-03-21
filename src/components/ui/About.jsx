@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { Hexagon } from 'lucide-react';
 
 const AWARD_ITEMS = [
-  '⬡ Eurobike Gold Award 2025',
-  '⬡ Red Dot Design Award Winner',
-  '⬡ MBUK Bike of the Year 2026',
-  '⬡ CyclingTips Editor\'s Choice',
-  '⬡ UCI Approved Frame',
+  { label: 'Eurobike Gold Award 2025' },
+  { label: 'Red Dot Design Award Winner' },
+  { label: 'MBUK Bike of the Year 2026' },
+  { label: 'CyclingTips Editor\'s Choice' },
+  { label: 'UCI Approved Frame' },
 ];
 
 const ENGINEERING_FACTS = [
@@ -147,8 +148,9 @@ export default function About() {
               <div className="border-t border-white/5 py-4 overflow-hidden">
                 <div className="marquee-inner flex gap-8 whitespace-nowrap">
                   {[...AWARD_ITEMS, ...AWARD_ITEMS].map((award, i) => (
-                    <span key={i} className="text-white/25 text-[9px] font-bold tracking-widest uppercase shrink-0">
-                      {award}
+                    <span key={i} className="text-white/25 text-[9px] font-bold tracking-widest uppercase shrink-0 flex items-center gap-2">
+                      <Hexagon size={10} className="text-red-accent" fill="currentColor" fillOpacity={0.15} />
+                      {award.label}
                     </span>
                   ))}
                 </div>

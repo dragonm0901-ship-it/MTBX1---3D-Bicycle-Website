@@ -1,6 +1,7 @@
 import { Suspense, useState, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, Preload } from '@react-three/drei';
+import { X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // UI Components
@@ -139,7 +140,7 @@ function GarageHUD({ isOpen, onExit, selectedPart, onClearPart }) {
         <span className="font-grotesk text-[10px] font-bold tracking-[0.22em] text-white/60 uppercase">Garage Mode</span>
         <span className="text-white/20">·</span>
         <span className="text-white/35 text-[10px] font-grotesk">
-          {selectedPart ? 'Click × to exit inspection' : 'Click hotspots to inspect'}
+          {selectedPart ? 'Click X to exit inspection' : 'Click hotspots to inspect'}
         </span>
       </div>
       {/* Back to orbit (shown during part zoom) */}
@@ -155,7 +156,7 @@ function GarageHUD({ isOpen, onExit, selectedPart, onClearPart }) {
             fontFamily: "'Space Grotesk', sans-serif", textTransform: 'uppercase',
           }}
         >
-          ✕ &nbsp;BACK TO OVERVIEW
+          <X size={10} /> &nbsp;BACK TO OVERVIEW
         </button>
       )}
       {/* Controls (only shown when no part focused) */}

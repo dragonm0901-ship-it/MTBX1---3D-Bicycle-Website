@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Award, Globe, Infinity, Handshake } from 'lucide-react';
 
 export default function CTA({ onBookClick }) {
   const [priceVisible, setPriceVisible] = useState(false);
@@ -34,18 +35,18 @@ export default function CTA({ onBookClick }) {
         <div className="absolute bottom-0 right-0 w-32 h-32 border-r border-b border-white/5" />
       </div>
 
-      <div className="max-w-5xl w-full text-center space-y-12 relative z-10">
+      <div className="max-w-5xl w-full text-center md:text-left space-y-12 relative z-10">
         
         {/* Eyebrow */}
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center md:justify-start gap-4">
           <div className="h-px w-16 bg-gradient-to-r from-transparent to-red-accent" />
           <span className="text-red-accent font-bold tracking-[0.5em] text-[10px] uppercase">Limited Edition · 100 units</span>
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-red-accent" />
+          <div className="h-px w-16 bg-gradient-to-l from-transparent to-red-accent md:hidden" />
         </div>
 
         {/* Headline */}
-        <div>
-          <h2 className="font-syncopate text-6xl md:text-8xl font-black leading-none tracking-[-0.03em]">
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <h2 className="font-syncopate text-4xl sm:text-5xl md:text-7xl font-black leading-none tracking-[-0.03em]">
             <span className="text-gradient-platinum">OWN THE</span>
             <br/>
             <span className="text-gradient-gold">MOUNTAIN</span>
@@ -54,7 +55,7 @@ export default function CTA({ onBookClick }) {
 
         {/* Price reveal */}
         <div
-          className={`inline-flex flex-col items-center transition-all duration-1000 ${priceVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`inline-flex flex-col items-center md:items-start transition-all duration-1000 ${priceVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
           <div className="text-white/25 text-[10px] font-bold tracking-[0.5em] uppercase mb-2">Starting at</div>
           <div className="font-syncopate text-5xl md:text-6xl text-white font-bold tabular-nums">
@@ -64,12 +65,12 @@ export default function CTA({ onBookClick }) {
         </div>
 
         {/* Description */}
-        <p className="text-white/45 font-grotesk text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+        <p className="text-white/45 font-grotesk text-lg md:text-xl font-light max-w-2xl md:mx-0 leading-relaxed text-center md:text-left">
           Production is limited to 100 units worldwide. Each bicycle is hand-assembled by our master technicians and ships with a lifetime frame warranty.
         </p>
 
         {/* CTA Group */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
           <button
             onClick={onBookClick}
             className="group relative overflow-hidden bg-white text-black px-12 py-5 rounded-full font-bold tracking-[0.2em] text-sm shadow-white transition-all duration-300 hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] hover:-translate-y-1 shimmer"
@@ -96,15 +97,15 @@ export default function CTA({ onBookClick }) {
         </div>
 
         {/* Trust signals */}
-        <div className="flex flex-wrap items-center justify-center gap-8 pt-8 border-t border-white/5">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 pt-8 border-t border-white/5">
           {[
-            { icon: '🏆', text: 'Eurobike Gold Award 2025' },
-            { icon: '🌍', text: 'Ships Worldwide' },
-            { icon: '♾', text: 'Lifetime Frame Warranty' },
-            { icon: '🤝', text: 'White Glove Delivery' },
+            { icon: Award, text: 'Eurobike Gold Award 2025' },
+            { icon: Globe, text: 'Ships Worldwide' },
+            { icon: Infinity, text: 'Lifetime Frame Warranty' },
+            { icon: Handshake, text: 'White Glove Delivery' },
           ].map((trust) => (
             <div key={trust.text} className="flex items-center gap-2 text-white/25 hover:text-white/50 transition-colors">
-              <span className="text-sm">{trust.icon}</span>
+              <trust.icon size={16} className="text-gold/50" />
               <span className="text-[10px] font-bold tracking-[0.15em] uppercase">{trust.text}</span>
             </div>
           ))}

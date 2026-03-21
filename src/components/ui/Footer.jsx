@@ -1,10 +1,17 @@
+import { Instagram, Youtube, Linkedin, Twitter } from 'lucide-react';
+
 const FOOTER_LINKS = {
   Architecture: ['V10 Platform', 'T1000 Carbon', 'Suspension Logic', 'Frame Geometry'],
   Performance:  ['XTR Di2 System', 'Fox Factory 40', 'Enve Wheels', 'Magura MT7'],
   Support:      ['Find a Dealer', 'Warranty', 'Service Network', 'Contact'],
 };
 
-const SOCIAL = ['X', 'IG', 'YT', 'LI'];
+const SOCIAL = [
+  { icon: Twitter, label: 'X' },
+  { icon: Instagram, label: 'IG' },
+  { icon: Youtube, label: 'YT' },
+  { icon: Linkedin, label: 'LI' },
+];
 
 export default function Footer() {
   return (
@@ -49,10 +56,11 @@ export default function Footer() {
             <div className="flex gap-4">
               {SOCIAL.map(s => (
                 <button
-                  key={s}
-                  className="w-9 h-9 rounded-xl border border-white/8 flex items-center justify-center text-white/25 hover:text-white hover:border-white/25 transition-all text-[10px] font-bold tracking-widest"
+                  key={s.label}
+                  className="w-9 h-9 rounded-xl border border-white/8 flex items-center justify-center text-white/25 hover:text-white hover:border-white/25 transition-all"
+                  aria-label={s.label}
                 >
-                  {s}
+                  <s.icon size={16} />
                 </button>
               ))}
             </div>
