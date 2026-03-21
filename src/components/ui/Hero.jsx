@@ -35,10 +35,10 @@ export default function Hero({ onBookClick, onEnterGarage }) {
       <div className="flex flex-col gap-5 max-w-2xl mt-[-6vh]">
         
         {/* Eyebrow */}
-        <div className="hero-text-block flex items-center gap-4">
+        <div className="hero-text-block flex items-center gap-4 mt-3 sm:mt-0">
           <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold" />
           <span className="text-red-accent font-bold tracking-[6px] text-[11px] uppercase font-grotesk">
-            2026 Elite Series · Limited 100
+            2025 Elite Series · Limited 100
           </span>
         </div>
 

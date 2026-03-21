@@ -25,10 +25,20 @@ gsap.registerPlugin(ScrollTrigger);
 function CustomCursor() {
   const dotRef = useRef();
   const ringRef = useRef();
+  const [isMobile, setIsMobile] = useState(false);
   const pos = useRef({ x: -200, y: -200 });
   const ring = useRef({ x: -200, y: -200 });
   const rafRef = useRef();
+  
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
     const onMove = (e) => {
       pos.current = { x: e.clientX, y: e.clientY };
       // Dot: instant snap
@@ -76,7 +86,10 @@ function CustomCursor() {
         el.removeEventListener('mouseleave', shrink);
       });
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
+
   return (
     <>
       <div
